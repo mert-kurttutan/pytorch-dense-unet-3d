@@ -7,7 +7,7 @@ pathing:
     - ./data/Training_Batch1/media/nas/01_Datasets/CT/LITS/Training Batch 1/
     - ./data/Training_Batch2/media/nas/01_Datasets/CT/LITS/Training Batch 2/
   test_img_dirs:
-    - null
+    - ./data/test
 
 dataset:
   batch_size: 3

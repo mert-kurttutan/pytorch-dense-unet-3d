@@ -7,11 +7,12 @@ from dense_unet_3d.model.building_blocks.UpsamplingBlock import UpsamplingBlock
 
 
 class DenseUNet3d(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes):
         """
         Create the layers for the model
         """
         super().__init__()
+        self.num_classes = num_classes
         # Initial Layers
         self.conv1 = nn.Conv3d(
             1, 96, kernel_size=(7, 7, 7), stride=2, padding=(3, 3, 3)
@@ -36,7 +37,7 @@ class DenseUNet3d(nn.Module):
 
         # Final output layer
         # Typo in the paper? Says stride = 0 but that's impossible
-        self.conv_classifier = nn.Conv3d(64, 3, kernel_size=1, stride=1)
+        self.conv_classifier = nn.Conv3d(64, num_classes, kernel_size=1, stride=1)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """

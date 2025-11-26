@@ -24,6 +24,8 @@ def evaluate(
     """
     dice_scores = []
 
+    num_classes = model.num_classes
+
     model.eval()
     with torch.no_grad():
         for data in dataloader:
@@ -37,10 +39,10 @@ def evaluate(
             segmentation = segmentation.to(device, dtype=torch.long)
 
             output = model(volume)
-            output = F.one_hot(torch.argmax(output, dim=1), num_classes=3).permute(
+            output = F.one_hot(torch.argmax(output, dim=1), num_classes=num_classes).permute(
                 4, 0, 1, 2, 3
             )
-            segmentation = F.one_hot(segmentation.squeeze(1), num_classes=3).permute(
+            segmentation = F.one_hot(segmentation.squeeze(1), num_classes=num_classes).permute(
                 4, 0, 1, 2, 3
             )
 
